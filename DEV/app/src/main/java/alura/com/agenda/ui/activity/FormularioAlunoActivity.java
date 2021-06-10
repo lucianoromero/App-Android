@@ -40,8 +40,11 @@ public class FormularioAlunoActivity extends AppCompatActivity {
                 dao.salva(alunocriado);
 
                 //Inicializando uma activity a parti de outra
-                startActivity(new Intent(FormularioAlunoActivity.this,
-                        ListaAlunosActivity.class));
+//                startActivity(new Intent(FormularioAlunoActivity.this,
+//                        ListaAlunosActivity.class));
+
+                //finalizando a activity
+                finish();
             }
         });
     }
