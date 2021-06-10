@@ -11,42 +11,47 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import alura.com.agenda.R;
 import alura.com.agenda.dao.AlunoDAO;
 
 public class ListaAlunosActivity extends AppCompatActivity {
+    private final AlunoDAO dao = new AlunoDAO();
+
+    public static final String TITULO_APPBAR = "Lista de Alunos";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Atribuindo nosso arquivo de layout a nossa activity
         setContentView(R.layout.activity_lista_alunos);
-
         //Atribuindo titulo
-        setTitle("Lista de Alunos");
+        setTitle(TITULO_APPBAR);
+        configuraFabNovoAluno();
 
+    }
+
+    private void configuraFabNovoAluno() {
         //Inicializando o formularioAlunoActivity
         FloatingActionButton botaoNovoAluno = findViewById(R.id.activity_lista_alunos_fab_novo_aluno);
         botaoNovoAluno.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ListaAlunosActivity.this,
-                        FormularioAlunoActivity.class));
+                abreFormularioAlunoActivity();
             }
         });
+    }
 
+    private void abreFormularioAlunoActivity() {
+        startActivity(new Intent(this, FormularioAlunoActivity.class));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        //Pegando a lista de Alunos do DAO
-        AlunoDAO dao = new AlunoDAO();
+        configuraLista();
+    }
 
+    private void configuraLista() {
         //Pegando os campos criados no nosso layout e atribuindo valores
         ListView listaDeAlunos = findViewById(R.id.activity_lista_alunos_listview);
 
