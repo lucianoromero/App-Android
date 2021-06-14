@@ -13,8 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.List;
+
 import alura.com.agenda.R;
 import alura.com.agenda.dao.AlunoDAO;
+import alura.com.agenda.model.Aluno;
 
 public class ListaAlunosActivity extends AppCompatActivity {
     private final AlunoDAO dao = new AlunoDAO();
@@ -57,16 +60,22 @@ public class ListaAlunosActivity extends AppCompatActivity {
         //Pegando os campos criados no nosso layout e atribuindo valores
         ListView listaDeAlunos = findViewById(R.id.activity_lista_alunos_listview);
 
+        final List<Aluno> alunos = dao.todos();
+
         listaDeAlunos.setAdapter(new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_list_item_1,
-                dao.todos()));
+                alunos));
 
         //Nova acao para edicao dos campos
         listaDeAlunos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("posicao aluno", "onItemClick: " + position);
+                Aluno alunoEscolhido = alunos.get(position);
+                Intent vaiParaFormularioActivity = new Intent(ListaAlunosActivity.this, FormularioAlunoActivity.class);
+                //Transferindo dados entre Activity
+                vaiParaFormularioActivity.putExtra("aluno",alunoEscolhido);
+                startActivity(vaiParaFormularioActivity);
             }
         });
     }
