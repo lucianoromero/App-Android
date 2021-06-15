@@ -37,7 +37,7 @@ public class AlunoDAO {
         for (Aluno a :
                 alunos) {
             if (a.getId() == aluno.getId()) {
-                return  a;
+                return a;
             }
         }
         return null;
@@ -46,5 +46,12 @@ public class AlunoDAO {
     public List<Aluno> todos() {
 
         return new ArrayList<>(alunos);
+    }
+
+    public void remove(Aluno aluno) {
+        Aluno alunoDevolvido = buscaAlunoPeloID(aluno);
+        if (alunoDevolvido != null) {
+            alunos.remove(alunoDevolvido);
+        }
     }
 }
