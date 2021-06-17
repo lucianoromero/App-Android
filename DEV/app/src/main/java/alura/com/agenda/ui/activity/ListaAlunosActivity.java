@@ -2,6 +2,7 @@ package alura.com.agenda.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -37,8 +38,15 @@ public class ListaAlunosActivity extends AppCompatActivity {
         setTitle(TITULO_APPBAR);
         configuraFabNovoAluno();
         configuraLista();
+
         dao.salva(new Aluno("Luciano", "123456798", "luciano@gmail.com"));
         dao.salva(new Aluno("Caio", "123456798", "caio@gmail.com"));
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.add("Remover");
     }
 
     private void configuraFabNovoAluno() {
@@ -74,6 +82,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
         configuraAdapter(listaDeAlunos);
         configuraListenerDeCliquePorItem(listaDeAlunos);
         configuraListenerDeCliqueLongoPorItem(listaDeAlunos);
+        registerForContextMenu(listaDeAlunos);
     }
 
     private void configuraListenerDeCliqueLongoPorItem(ListView listaDeAlunos) {
@@ -83,7 +92,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Aluno alunoEscolhido = (Aluno) adapterView.getItemAtPosition(position);
                 remove(alunoEscolhido);
-                return true;
+                return false;
             }
         });
     }
