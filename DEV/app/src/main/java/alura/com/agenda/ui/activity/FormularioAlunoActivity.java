@@ -35,8 +35,9 @@ public class FormularioAlunoActivity extends AppCompatActivity {
         carregaAluno();
     }
 
+    //TODO Metodo Responsavel por carregar os dados do aluno, nele temos uma logica onde verifica se temos dados vindo da Lista de Alunos
+    //Caso tiver dados ele Carrega com os dados.
     private void carregaAluno() {
-        //Pegando os dados do Aluno
         Intent dados = getIntent();
         if (dados.hasExtra(CHAVE_ALUNO)) {
             setTitle(TITULO_APPBAR_EDITA_ALUNO);
@@ -48,13 +49,14 @@ public class FormularioAlunoActivity extends AppCompatActivity {
         }
     }
 
+    //TODO Metodo Responsavel por carregar os dados caso tenha vindo algum dado da tela anterior
     private void preencheCampos() {
         campoNome.setText(aluno.getNome());
         campoTelefone.setText(aluno.getTelefone());
         campoEmail.setText(aluno.getEmail());
     }
 
-    //Metodo Botao Salvar
+    //TODO Metodo Botao Salvar
     private void configuraBotaoSalvar() {
         //Criando a ação de salvar
         Button botaoSalvar = findViewById(R.id.activity_formulario_aluno_botao_salvar);
@@ -66,9 +68,9 @@ public class FormularioAlunoActivity extends AppCompatActivity {
         });
     }
 
+    //TODO Metodo Responsavel por finalizar o formulario e ver com ação irar acontecer EDITAR ou SALVAR novo
     private void finalizaFormulario() {
         preencheAluno();
-
         if (aluno.temIdValido()) {
             dao.edita(aluno);
         } else {
@@ -77,7 +79,7 @@ public class FormularioAlunoActivity extends AppCompatActivity {
         finish();
     }
 
-    //Metodo Inivializacao Dos Campos
+    //TODO Metodo Responsavel por Inicializar os campos do formuliario
     private void inicializacaoDosCampos() {
         campoNome = findViewById(R.id.activity_formulario_aluno_nome);
         campoTelefone = findViewById(R.id.activity_formulario_aluno_telefone);
@@ -85,7 +87,7 @@ public class FormularioAlunoActivity extends AppCompatActivity {
     }
 
 
-    //Metodo alterando os dados do aluno
+    //TODO Metodo Responsavel por pegar os dados preenchidos nos campos e passar para variaveis
     private void preencheAluno() {
         String nome = campoNome.getText().toString();
         String telefone = campoTelefone.getText().toString();

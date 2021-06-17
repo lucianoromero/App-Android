@@ -12,6 +12,11 @@ public class AlunoDAO {
     private final static List<Aluno> alunos = new ArrayList<>();
     private static int contatorDeIds = 1;
 
+
+    /**
+     * @param aluno
+     * Metodo Responsavel por salvar o Aluno
+     */
     public void salva(Aluno aluno) {
         aluno.setId(contatorDeIds);
         alunos.add(aluno);
@@ -22,6 +27,10 @@ public class AlunoDAO {
         contatorDeIds++;
     }
 
+    /**
+     * @param aluno
+     * Metodo Responsavel por Editar um aluno
+     */
     public void edita(Aluno aluno) {
         Aluno alunoEncontrado = buscaAlunoPeloID(aluno);
 
@@ -43,11 +52,18 @@ public class AlunoDAO {
         return null;
     }
 
+    /**
+     * @return Lista de Alunos
+     * Metodo Responsavel por retorno a lista com todos alunos
+     */
     public List<Aluno> todos() {
-
         return new ArrayList<>(alunos);
     }
 
+    /**
+     * @param aluno
+     * Metodo Responsavel por remover um aluno
+     */
     public void remove(Aluno aluno) {
         Aluno alunoDevolvido = buscaAlunoPeloID(aluno);
         if (alunoDevolvido != null) {

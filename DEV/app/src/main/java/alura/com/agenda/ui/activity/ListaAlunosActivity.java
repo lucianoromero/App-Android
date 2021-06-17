@@ -28,9 +28,9 @@ public class ListaAlunosActivity extends AppCompatActivity {
     public static final String TITULO_APPBAR = "Lista de Alunos";
     private ArrayAdapter<Aluno> adapter;
 
+    //TODO Evento onCreate ele acontece quando a activety é criada
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        //Evento OnCreate
         super.onCreate(savedInstanceState);
         //Atribuindo nosso arquivo de layout a nossa activity
         setContentView(R.layout.activity_lista_alunos);
@@ -43,14 +43,15 @@ public class ListaAlunosActivity extends AppCompatActivity {
         dao.salva(new Aluno("Caio", "123456798", "caio@gmail.com"));
     }
 
+    //TODO Evento da criação do nosso menu
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         menu.add("Remover");
     }
 
+    //TODO Metodo Responsavel pela criação do nosso botão FAB
     private void configuraFabNovoAluno() {
-        //Inicializando o formularioAlunoActivity
         FloatingActionButton botaoNovoAluno = findViewById(R.id.activity_lista_alunos_fab_novo_aluno);
         botaoNovoAluno.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,10 +61,12 @@ public class ListaAlunosActivity extends AppCompatActivity {
         });
     }
 
+    //TODO Metodo Responsavel pela abertura da classe formularioAlunoActivity
     private void abreFormularioModoInsereAluno() {
         startActivity(new Intent(this, FormularioAlunoActivity.class));
     }
 
+    //TODO Evento do Ciclo de vida da Activity quando saimos e voltamos nela o evento tem a função de atualizar os dados
     @Override
     protected void onResume() {
         super.onResume();
@@ -71,13 +74,14 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
     }
 
+    //TODO  Metodo  Responsavel  em atualizar os dados do nosso adapter
     private void atualizaAlunos() {
         adapter.clear();
         adapter.add((Aluno) dao.todos());
     }
 
+    //TODO Metodo Responsavel pela configuração inicial da nossa Activity
     private void configuraLista() {
-        //Pegando os campos criados no nosso layout e atribuindo valores
         ListView listaDeAlunos = findViewById(R.id.activity_lista_alunos_listview);
         configuraAdapter(listaDeAlunos);
         configuraListenerDeCliquePorItem(listaDeAlunos);
@@ -85,8 +89,8 @@ public class ListaAlunosActivity extends AppCompatActivity {
         registerForContextMenu(listaDeAlunos);
     }
 
+    //TODO Metodo Responsavel pelo Clique longo de remoção
     private void configuraListenerDeCliqueLongoPorItem(ListView listaDeAlunos) {
-        //Implementando a ação de pressão no botão clike long
         listaDeAlunos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -97,12 +101,14 @@ public class ListaAlunosActivity extends AppCompatActivity {
         });
     }
 
+    //TODO Metodo Responsavel pela remoção
     private void remove(Aluno aluno) {
         dao.remove(aluno);
         adapter.remove(aluno);
     }
 
-    private void configuraListenerDeCliquePorItem(ListView listaDeAlunos ) {
+    //TODO Metodo Responsavel pelo clique nos alunos na lista em pegar o aluno e abrir para outra Activity
+    private void configuraListenerDeCliquePorItem(ListView listaDeAlunos) {
         //Nova acao para edicao dos campos
         listaDeAlunos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -113,6 +119,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
         });
     }
 
+    //TODO Metodo Responsavel em abrir o outra Activity e passar os dados do aluno
     private void abreFormularioModoEditaAluno(Aluno aluno) {
         Intent vaiParaFormularioActivity = new Intent(ListaAlunosActivity.this, FormularioAlunoActivity.class);
         //Transferindo dados entre Activity
@@ -120,11 +127,11 @@ public class ListaAlunosActivity extends AppCompatActivity {
         startActivity(vaiParaFormularioActivity);
     }
 
+    //TODO Metodo responsavel por inserir a lista de alunos no activity_lista_alunos_listview
     private void configuraAdapter(ListView listaDeAlunos) {
         adapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_list_item_1);
-
         listaDeAlunos.setAdapter(adapter);
     }
 }
