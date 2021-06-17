@@ -38,7 +38,6 @@ public class ListaAlunosActivity extends AppCompatActivity {
         setTitle(TITULO_APPBAR);
         configuraFabNovoAluno();
         configuraLista();
-
         dao.salva(new Aluno("Luciano", "123456798", "luciano@gmail.com"));
         dao.salva(new Aluno("Caio", "123456798", "caio@gmail.com"));
     }
@@ -72,12 +71,13 @@ public class ListaAlunosActivity extends AppCompatActivity {
         super.onResume();
         atualizaAlunos();
 
+
     }
 
     //TODO  Metodo  Responsavel  em atualizar os dados do nosso adapter
     private void atualizaAlunos() {
         adapter.clear();
-        adapter.add((Aluno) dao.todos());
+        adapter.addAll(dao.todos());
     }
 
     //TODO Metodo Responsavel pela configuração inicial da nossa Activity
@@ -85,21 +85,20 @@ public class ListaAlunosActivity extends AppCompatActivity {
         ListView listaDeAlunos = findViewById(R.id.activity_lista_alunos_listview);
         configuraAdapter(listaDeAlunos);
         configuraListenerDeCliquePorItem(listaDeAlunos);
-        configuraListenerDeCliqueLongoPorItem(listaDeAlunos);
         registerForContextMenu(listaDeAlunos);
     }
 
     //TODO Metodo Responsavel pelo Clique longo de remoção
-    private void configuraListenerDeCliqueLongoPorItem(ListView listaDeAlunos) {
-        listaDeAlunos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Aluno alunoEscolhido = (Aluno) adapterView.getItemAtPosition(position);
-                remove(alunoEscolhido);
-                return false;
-            }
-        });
-    }
+//    private void configuraListenerDeCliqueLongoPorItem(ListView listaDeAlunos) {
+//        listaDeAlunos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
+//                Aluno alunoEscolhido = (Aluno) adapterView.getItemAtPosition(position);
+//                remove(alunoEscolhido);
+//                return true;
+//            }
+//        });
+//    }
 
     //TODO Metodo Responsavel pela remoção
     private void remove(Aluno aluno) {
