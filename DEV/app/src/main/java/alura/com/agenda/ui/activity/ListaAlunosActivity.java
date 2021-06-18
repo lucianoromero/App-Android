@@ -42,6 +42,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
         configuraLista();
         dao.salva(new Aluno("Luciano", "123456798", "luciano@gmail.com"));
         dao.salva(new Aluno("Caio", "123456798", "caio@gmail.com"));
+
     }
 
     //TODO Evento da criação do nosso menu
