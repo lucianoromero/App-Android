@@ -54,9 +54,12 @@ public class ListaAlunosActivity extends AppCompatActivity {
     //TODO Menu de Contexto
     @Override
     public boolean onContextItemSelected(@NonNull MenuItem item) {
-        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        Aluno alunoescolhido = adapter.getItem(menuInfo.position);
-        remove(alunoescolhido);
+        int itemId = item.getItemId();
+        if (itemId == R.id.activity_lista_alunos_menu_remover) {
+            AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+            Aluno alunoescolhido = adapter.getItem(menuInfo.position);
+            remove(alunoescolhido);
+        }
         return super.onContextItemSelected(item);
     }
 
@@ -98,7 +101,6 @@ public class ListaAlunosActivity extends AppCompatActivity {
         configuraListenerDeCliquePorItem(listaDeAlunos);
         registerForContextMenu(listaDeAlunos);
     }
-
 
 
     //TODO Metodo Responsavel pelo Clique longo de remoção
