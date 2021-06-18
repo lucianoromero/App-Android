@@ -3,11 +3,13 @@ package alura.com.agenda.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -49,6 +51,15 @@ public class ListaAlunosActivity extends AppCompatActivity {
         menu.add("Remover");
     }
 
+    //TODO Menu de Contexto
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        Aluno alunoescolhido = adapter.getItem(menuInfo.position);
+        remove(alunoescolhido);
+        return super.onContextItemSelected(item);
+    }
+
     //TODO Metodo Responsavel pela criação do nosso botão FAB
     private void configuraFabNovoAluno() {
         FloatingActionButton botaoNovoAluno = findViewById(R.id.activity_lista_alunos_fab_novo_aluno);
@@ -87,6 +98,8 @@ public class ListaAlunosActivity extends AppCompatActivity {
         configuraListenerDeCliquePorItem(listaDeAlunos);
         registerForContextMenu(listaDeAlunos);
     }
+
+
 
     //TODO Metodo Responsavel pelo Clique longo de remoção
 //    private void configuraListenerDeCliqueLongoPorItem(ListView listaDeAlunos) {
