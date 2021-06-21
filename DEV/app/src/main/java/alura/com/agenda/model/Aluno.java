@@ -40,12 +40,6 @@ public class Aluno implements Serializable {
         return email;
     }
 
-    @NonNull
-    @Override
-    public String toString() {
-        return nome;
-    }
-
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -58,6 +52,11 @@ public class Aluno implements Serializable {
         this.email = email;
     }
 
+    @NonNull
+    @Override
+    public String toString() {
+        return nome + " - " + telefone;
+    }
 
     public boolean temIdValido() {
         return id > 0;
