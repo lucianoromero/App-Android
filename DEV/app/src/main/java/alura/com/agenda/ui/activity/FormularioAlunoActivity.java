@@ -2,10 +2,13 @@ package alura.com.agenda.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import alura.com.agenda.R;
@@ -31,8 +34,23 @@ public class FormularioAlunoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_aluno);
         inicializacaoDosCampos();
-        configuraBotaoSalvar();
         carregaAluno();
+    }
+
+    //TODO Metodo Responsavel pela criação do meu de opção
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_formulario_aluno_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.activity_formulario_aluno_menu_salvar){
+            finalizaFormulario();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     //TODO Metodo Responsavel por carregar os dados do aluno, nele temos uma logica onde verifica se temos dados vindo da Lista de Alunos
@@ -57,16 +75,16 @@ public class FormularioAlunoActivity extends AppCompatActivity {
     }
 
     //TODO Metodo Botao Salvar
-    private void configuraBotaoSalvar() {
-        //Criando a ação de salvar
-        Button botaoSalvar = findViewById(R.id.activity_formulario_aluno_botao_salvar);
-        botaoSalvar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finalizaFormulario();
-            }
-        });
-    }
+//    private void configuraBotaoSalvar() {
+//        //Criando a ação de salvar
+//        Button botaoSalvar = findViewById(R.id.activity_formulario_aluno_botao_salvar);
+//        botaoSalvar.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                finalizaFormulario();
+//            }
+//        });
+//    }
 
     //TODO Metodo Responsavel por finalizar o formulario e ver com ação irar acontecer EDITAR ou SALVAR novo
     private void finalizaFormulario() {
