@@ -24,6 +24,7 @@ import java.util.List;
 import alura.com.agenda.R;
 import alura.com.agenda.dao.AlunoDAO;
 import alura.com.agenda.model.Aluno;
+import alura.com.agenda.ui.adapter.ListaAlunosAdapter;
 
 import static alura.com.agenda.ui.activity.ConstantesActivities.CHAVE_ALUNO;
 
@@ -32,7 +33,8 @@ public class ListaAlunosActivity extends AppCompatActivity {
     private final AlunoDAO dao = new AlunoDAO();
 
     public static final String TITULO_APPBAR = "Lista de Alunos";
-    private ArrayAdapter<Aluno> adapter;
+    private ListaAlunosAdapter adapter;
+
 
     //TODO Evento onCreate ele acontece quando a activety é criada
     @Override
@@ -148,35 +150,9 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
     //TODO Metodo responsavel por inserir a lista de alunos no activity_lista_alunos_listview
     private void configuraAdapter(ListView listaDeAlunos) {
-        adapter = new ArrayAdapter<>(
-                this,
-                R.layout.item_aluno);
-        listaDeAlunos.setAdapter(new BaseAdapter() {
 
-            private final List<Aluno> alunos = new ArrayList<>();
+        adapter = new ListaAlunosAdapter(this);
 
-            @Override
-            public int getCount() {
-                return alunos.size();
-            }
-
-            @Override
-            public Aluno getItem(int position) {
-                return alunos.get(position);
-            }
-
-            @Override
-            public long getItemId(int position) {
-                return alunos.get(position).getId();
-            }
-
-            @Override
-            public View getView(int position, View view, ViewGroup viewGroup) {
-                View viewCriada = LayoutInflater
-                        .from(ListaAlunosActivity.this)
-                        .inflate(R.layout.item_aluno, viewGroup);
-                return viewCriada;
-            }
-        });
+        listaDeAlunos.setAdapter(adapter);
     }
 }
