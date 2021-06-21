@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,12 @@ public class ListaAlunosAdapter extends BaseAdapter {
         View viewCriada = LayoutInflater
                 .from(context)
                 .inflate(R.layout.item_aluno, viewGroup, false);
+
+        Aluno alunoDevolvido = alunos.get(position);
+        TextView nome = viewCriada.findViewById(R.id.item_aluno_nome);
+        TextView telefone = viewCriada.findViewById(R.id.item_aluno_telefone);
+        nome.setText(alunoDevolvido.getNome());
+        telefone.setText(alunoDevolvido.getTelefone());
         return viewCriada;
     }
 
