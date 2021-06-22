@@ -3,13 +3,9 @@ package alura.com.agenda.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -17,9 +13,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import alura.com.agenda.R;
 import alura.com.agenda.dao.AlunoDAO;
@@ -97,8 +90,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
     //TODO  Metodo  Responsavel  em atualizar os dados do nosso adapter
     private void atualizaAlunos() {
-        adapter.clear();
-        adapter.addAll(dao.todos());
+        adapter.atualiza(dao.todos());
     }
 
     //TODO Metodo Responsavel pela configuração inicial da nossa Activity
@@ -110,17 +102,6 @@ public class ListaAlunosActivity extends AppCompatActivity {
     }
 
 
-    //TODO Metodo Responsavel pelo Clique longo de remoção
-//    private void configuraListenerDeCliqueLongoPorItem(ListView listaDeAlunos) {
-//        listaDeAlunos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-//            @Override
-//            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
-//                Aluno alunoEscolhido = (Aluno) adapterView.getItemAtPosition(position);
-//                remove(alunoEscolhido);
-//                return true;
-//            }
-//        });
-//    }
 
     //TODO Metodo Responsavel pela remoção
     private void remove(Aluno aluno) {
