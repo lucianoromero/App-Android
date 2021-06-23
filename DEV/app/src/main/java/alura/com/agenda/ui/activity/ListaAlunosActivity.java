@@ -1,5 +1,6 @@
 package alura.com.agenda.ui.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -10,6 +11,7 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -51,12 +53,26 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
     //TODO Menu de Contexto
     @Override
-    public boolean onContextItemSelected(@NonNull MenuItem item) {
+    public boolean onContextItemSelected(final MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.activity_lista_alunos_menu_remover) {
-            AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-            Aluno alunoescolhido = adapter.getItem(menuInfo.position);
-            remove(alunoescolhido);
+            new AlertDialog
+                    .Builder(this)
+                    .setTitle("Removendo aluno")
+                    .setMessage("Tem certeza que quer remover o aluno?")
+                    .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+                            Aluno alunoescolhido = adapter.getItem(menuInfo.position);
+                            remove(alunoescolhido);
+
+                        }
+                    })
+                    .setNegativeButton("Não", null)
+                    .show();
+
+
         }
         return super.onContextItemSelected(item);
     }
@@ -98,7 +114,6 @@ public class ListaAlunosActivity extends AppCompatActivity {
         configuraListenerDeCliquePorItem(listaDeAlunos);
         registerForContextMenu(listaDeAlunos);
     }
-
 
 
     //TODO Metodo Responsavel pela remoção
