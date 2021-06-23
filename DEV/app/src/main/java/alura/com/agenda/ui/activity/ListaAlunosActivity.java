@@ -53,28 +53,31 @@ public class ListaAlunosActivity extends AppCompatActivity {
 
     //TODO Menu de Contexto
     @Override
-    public boolean onContextItemSelected(final MenuItem item) {
+    public boolean onContextItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.activity_lista_alunos_menu_remover) {
-            new AlertDialog
-                    .Builder(this)
-                    .setTitle("Removendo aluno")
-                    .setMessage("Tem certeza que quer remover o aluno?")
-                    .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-                            Aluno alunoescolhido = adapter.getItem(menuInfo.position);
-                            remove(alunoescolhido);
-
-                        }
-                    })
-                    .setNegativeButton("Não", null)
-                    .show();
-
+            confirmaRemocao(item);
 
         }
         return super.onContextItemSelected(item);
+    }
+
+    //TODO Metodo Responsavel por aplicar a caixa de dialog e remover o aluno
+    private void confirmaRemocao(final MenuItem item) {
+        new AlertDialog
+                .Builder(this)
+                .setTitle("Removendo aluno")
+                .setMessage("Tem certeza que quer remover o aluno?")
+                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+                        Aluno alunoescolhido = adapter.getItem(menuInfo.position);
+                        remove(alunoescolhido);
+                    }
+                })
+                .setNegativeButton("Não", null)
+                .show();
     }
 
     //TODO Metodo Responsavel pela criação do nosso botão FAB
