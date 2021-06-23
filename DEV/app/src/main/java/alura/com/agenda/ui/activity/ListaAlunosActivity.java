@@ -1,6 +1,5 @@
 package alura.com.agenda.ui.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -9,7 +8,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -68,13 +66,10 @@ public class ListaAlunosActivity extends AppCompatActivity {
                 .Builder(this)
                 .setTitle("Removendo aluno")
                 .setMessage("Tem certeza que quer remover o aluno?")
-                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-                        Aluno alunoescolhido = adapter.getItem(menuInfo.position);
-                        remove(alunoescolhido);
-                    }
+                .setPositiveButton("Sim", (dialog, which) -> {
+                    AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+                    Aluno alunoescolhido = adapter.getItem(menuInfo.position);
+                    remove(alunoescolhido);
                 })
                 .setNegativeButton("Não", null)
                 .show();
@@ -83,12 +78,7 @@ public class ListaAlunosActivity extends AppCompatActivity {
     //TODO Metodo Responsavel pela criação do nosso botão FAB
     private void configuraFabNovoAluno() {
         FloatingActionButton botaoNovoAluno = findViewById(R.id.activity_lista_alunos_fab_novo_aluno);
-        botaoNovoAluno.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                abreFormularioModoInsereAluno();
-            }
-        });
+        botaoNovoAluno.setOnClickListener(v -> abreFormularioModoInsereAluno());
     }
 
     //TODO Metodo Responsavel pela abertura da classe formularioAlunoActivity
@@ -128,12 +118,9 @@ public class ListaAlunosActivity extends AppCompatActivity {
     //TODO Metodo Responsavel pelo clique nos alunos na lista em pegar o aluno e abrir para outra Activity
     private void configuraListenerDeCliquePorItem(ListView listaDeAlunos) {
         //Nova acao para edicao dos campos
-        listaDeAlunos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Aluno alunoEscolhido = (Aluno) adapterView.getItemAtPosition(position);
-                abreFormularioModoEditaAluno(alunoEscolhido);
-            }
+        listaDeAlunos.setOnItemClickListener((adapterView, view, position, id) -> {
+            Aluno alunoEscolhido = (Aluno) adapterView.getItemAtPosition(position);
+            abreFormularioModoEditaAluno(alunoEscolhido);
         });
     }
 
